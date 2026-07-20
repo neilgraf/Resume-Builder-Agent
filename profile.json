@@ -1,0 +1,83 @@
+{
+  "personal": {
+    "full_name": "Neil Graf",
+    "email": "neil38103@gmail.com",
+    "phone": "(920) 915-6316",
+    "location": "Appleton, WI",
+    "linkedin": "https://linkedin.com/in/neilgraf",
+    "github": "https://github.com/neilgraf",
+    "portfolio": "https://neilgraf.github.io/portfolio-website",
+    "school_address": "610 14th Ave SE, Minneapolis, MN 55414 (school-year address through summer 2027)",
+    "home_address": "Appleton, WI"
+  },
+  "summary": "Computer science student at the University of Minnesota (GPA 3.82, graduating Dec 2026) with IT internship experience in systems administration, automation, and AI agents. TA for Intro to Software Development.",
+  "experience": [
+    {
+      "company": "The Boldt Company",
+      "title": "IT Intern",
+      "start_date": "2026-05",
+      "end_date": "Present",
+      "location": "Appleton, WI",
+      "highlights": [
+        "Automated Active Directory user provisioning scripts with dynamic username generation, mailbox creation, and OU assignment",
+        "Developed an internal application to automate user-to-group assignments across M365 and Azure",
+        "Built and deployed an AI agent (Microsoft Copilot Studio) for KACE service desk ticket categorization and troubleshooting recommendations",
+        "Use Azure DevOps for task management and Agile practices"
+      ]
+    },
+    {
+      "company": "Little Chute Area School District",
+      "title": "IT Intern",
+      "start_date": "2025-05",
+      "end_date": "2026-01",
+      "location": "Little Chute, WI",
+      "highlights": [
+        "Diagnosed and repaired Chromebook hardware/software issues; managed 500+ devices district-wide",
+        "Provided help desk support for teachers (Wi-Fi, laptops, classroom technology)"
+      ]
+    },
+    {
+      "company": "Sonoco",
+      "title": "Summer Helper",
+      "start_date": "2024-05",
+      "end_date": "2024-08",
+      "location": "Neenah, WI",
+      "highlights": [
+        "Collaborated with team members to troubleshoot machinery issues"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "school": "University of Minnesota, Twin Cities",
+      "degree": "B.A. Computer Science, Minor in Statistics",
+      "graduation_date": "2026-12",
+      "gpa": "3.82",
+      "notes": "Teaching Assistant for CSCI 2081 (Introduction to Software Development)"
+    }
+  ],
+  "skills": [
+    "Python",
+    "Java",
+    "C",
+    "C++",
+    "R",
+    "SQL",
+    "Spring Boot",
+    "Azure DevOps",
+    "Git",
+    "Flask",
+    "Microsoft Copilot Studio",
+    "Power Platform",
+    "M365"
+  ],
+  "links": {
+    "resume_pdf_url": ""
+  },
+  "preferences": {
+    "work_authorization": "Authorized to work in the US",
+    "requires_sponsorship": "No",
+    "willing_to_relocate": "",
+    "salary_expectation": "Open to discussing based on role"
+  }
+}
