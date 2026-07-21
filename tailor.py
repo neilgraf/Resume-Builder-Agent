@@ -30,16 +30,6 @@ from google.genai import types
 
 MODEL = "gemini-3.5-flash"  # current Gemini model as of mid-2026; check ai.google.dev/gemini-api for current models & limits
 
-PDF_CSS = """
-body { font-family: Georgia, 'Times New Roman', serif; font-size: 10.5pt; line-height: 1.35; color: #1a1a1a; }
-h1 { font-size: 17pt; margin: 0 0 2pt 0; }
-h2 { font-size: 11.5pt; border-bottom: 1px solid #999; margin: 10pt 0 4pt 0; text-transform: uppercase; letter-spacing: 0.5pt; }
-ul { margin: 2pt 0 6pt 0; padding-left: 16pt; }
-li { margin-bottom: 1pt; }
-p { margin: 2pt 0; }
-a { color: #1a1a1a; text-decoration: none; }
-"""
-
 
 def fetch_job_text(source: str) -> str:
     """Get job description text from a URL or a local text file."""
@@ -71,7 +61,9 @@ def tailor(resume_md: str, rules_md: str, job_text: str) -> str:
 
 def write_cover_letter(resume_md: str, cover_rules_md: str, job_text: str, company: str) -> str:
     client = genai.Client()
+    today_str = datetime.date.today().strftime("%B %d, %Y")
     prompt = (
+        f"TODAY'S DATE (use this exact date in the letter header, do not guess or use any other date): {today_str}\n\n"
         f"COMPANY: {company}\n\n"
         f"JOB DESCRIPTION:\n{job_text}\n\n"
         f"CANDIDATE RESUME (the only source of facts about the candidate):\n{resume_md}\n\n"
@@ -85,6 +77,28 @@ def write_cover_letter(resume_md: str, cover_rules_md: str, job_text: str, compa
     return response.text
 
 
+def fix_markdown_lists(text: str) -> str:
+    """Guarantee a blank line before any list block.
+
+    Python-Markdown (and most Markdown parsers) only start a real <ul> if the
+    list is preceded by a blank line. If the model's output skips that blank
+    line after a job title, the parser treats it all as one paragraph and the
+    bullets end up mashed together with literal " - " text. This is a code
+    guarantee, not a prompt request, same reasoning as enforce_no_dashes().
+    """
+    lines = text.split("\n")
+    fixed = []
+    for i, line in enumerate(lines):
+        is_bullet = line.strip().startswith(("- ", "* "))
+        prev_is_blank_or_bullet = (
+            i == 0 or not lines[i - 1].strip() or lines[i - 1].strip().startswith(("- ", "* "))
+        )
+        if is_bullet and not prev_is_blank_or_bullet:
+            fixed.append("")  # insert the missing blank line
+        fixed.append(line)
+    return "\n".join(fixed)
+
+
 def enforce_no_dashes(text: str) -> str:
     """Hard guardrail: strip em/en dashes even if the model slips one in.
 
@@ -94,19 +108,63 @@ def enforce_no_dashes(text: str) -> str:
     return text.replace("\u2014", ", ").replace("\u2013", " to ")
 
 
-def to_pdf(md_text: str, pdf_path: pathlib.Path):
+def render_html(md_text: str, font_size: float = 10.5, margin_in: float = 0.65) -> str:
     import markdown
+
+    css = f"""
+    body {{ font-family: Georgia, 'Times New Roman', serif; font-size: {font_size}pt; line-height: 1.32; color: #1a1a1a; max-width: 7.2in; margin: 0 auto; }}
+    h1 {{ font-size: {font_size + 7}pt; margin: 0 0 3pt 0; }}
+    h2 {{ font-size: {font_size + 1.5}pt; border-bottom: 1px solid #999; margin: 10pt 0 4pt 0; padding-bottom: 2pt; text-transform: uppercase; letter-spacing: 0.5pt; }}
+    p {{ margin: 3pt 0; }}
+    p strong {{ font-size: {font_size + 0.5}pt; }}
+    ul {{ margin: 3pt 0 8pt 0; padding-left: 16pt; }}
+    li {{ margin-bottom: 2pt; }}
+    a {{ color: #1a1a1a; text-decoration: none; }}
+    """
+    # nl2br: without this, a single line break inside a paragraph collapses into
+    # a space, which is exactly what squished the education section together.
+    html_body = markdown.markdown(md_text, extensions=["nl2br"])
+    return f"<html><head><style>{css}</style></head><body>{html_body}</body></html>"
+
+
+def to_pdf(md_text: str, pdf_path: pathlib.Path, one_page: bool = False):
     from playwright.sync_api import sync_playwright
 
-    html_body = markdown.markdown(md_text)
-    html = f"<html><head><style>{PDF_CSS}</style></head><body>{html_body}</body></html>"
+    if not one_page:
+        html = render_html(md_text)
+        with sync_playwright() as pw:
+            browser = pw.chromium.launch()
+            page = browser.new_page()
+            page.set_content(html)
+            page.pdf(path=str(pdf_path), format="Letter", margin={"top": "0.65in", "bottom": "0.65in", "left": "0.65in", "right": "0.65in"})
+            browser.close()
+        return
 
+    # Shrink-to-fit: try progressively smaller font/margins until it's one page.
+    # This is a backstop -- the real fix is keeping resume.md and rules.md
+    # tight enough that this rarely has to kick in.
+    try:
+        from pypdf import PdfReader
+    except ImportError:
+        from PyPDF2 import PdfReader  # fallback for older installs
+
+    attempts = [(10.5, 0.65), (10, 0.6), (9.5, 0.55), (9, 0.5), (8.5, 0.45)]
     with sync_playwright() as pw:
         browser = pw.chromium.launch()
         page = browser.new_page()
-        page.set_content(html)
-        page.pdf(path=str(pdf_path), format="Letter", margin={"top": "0.7in", "bottom": "0.7in", "left": "0.7in", "right": "0.7in"})
+        for font_size, margin_in in attempts:
+            html = render_html(md_text, font_size, margin_in)
+            page.set_content(html)
+            page.pdf(path=str(pdf_path), format="Letter", margin={
+                "top": f"{margin_in}in", "bottom": f"{margin_in}in",
+                "left": f"{margin_in}in", "right": f"{margin_in}in",
+            })
+            page_count = len(PdfReader(str(pdf_path)).pages)
+            if page_count <= 1:
+                browser.close()
+                return
         browser.close()
+    print(f"  Warning: still {page_count} pages even at smallest size. Trim resume.md content or rules.md bullet limits.")
 
 
 def git_commit(paths: list[pathlib.Path], message: str):
@@ -133,6 +191,7 @@ def main():
 
     print("Tailoring resume...")
     output = enforce_no_dashes(tailor(resume_md, rules_md, job_text))
+    output = fix_markdown_lists(output)
 
     # Split the resume from the agent's notes
     if "===NOTES===" in output:
@@ -148,11 +207,12 @@ def main():
 
     md_path.write_text(tailored_md.strip() + "\n")
     print("Rendering resume PDF...")
-    to_pdf(tailored_md, pdf_path)
+    to_pdf(tailored_md, pdf_path, one_page=True)
 
     print("Writing cover letter...")
     cover_rules_md = (base / "cover_rules.md").read_text()
     cover_md = enforce_no_dashes(write_cover_letter(resume_md, cover_rules_md, job_text, args.company))
+    cover_md = fix_markdown_lists(cover_md)
     cover_md_path = versions / f"{slug}_cover_letter.md"
     cover_pdf_path = versions / f"{slug}_cover_letter.pdf"
     cover_md_path.write_text(cover_md.strip() + "\n")

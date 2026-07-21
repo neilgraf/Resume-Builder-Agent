@@ -48,9 +48,20 @@ Separate from the form filler. Give it a job posting, it rewrites resume.md to
 match, following rules.md, and outputs a versioned Markdown + PDF.
 
 ```bash
-pip install requests beautifulsoup4 markdown weasyprint --break-system-packages
+pip install requests beautifulsoup4 markdown pypdf --break-system-packages
 python tailor.py "https://boards.greenhouse.io/example/jobs/123" --company "Example Co"
 ```
+
+`pypdf` is used to count PDF pages so the resume can automatically shrink font
+size and margins until it fits on one page. If the warning about "still N
+pages even at smallest size" ever prints, that's a signal to trim resume.md or
+tighten the bullet limits in rules.md rather than shrink further -- text that
+small stops being readable.
+
+PDF rendering uses Playwright (already installed for agent.py) instead of
+WeasyPrint, since WeasyPrint needs native GTK libraries that are a pain to set
+up on Windows. If you installed weasyprint earlier, it's safe to leave it or
+uninstall it (`pip uninstall weasyprint`) -- it's no longer imported.
 
 - `resume.md` is the source of truth. Edit it with your real info; the tailor
   can only rearrange and reword what exists there, never add facts.

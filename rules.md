@@ -33,6 +33,17 @@ absolute and override anything implied by the job description.
 9. Avoid stacked adjectives and filler. "Built a study group scheduling app in
    Python" beats "Successfully developed an innovative scheduling solution."
 
+## Length (fits on one page)
+13. The output must fit a single standard resume page. To hit that:
+    - At most 4 bullets per work experience entry. If the source has more,
+      keep the most relevant to this job and drop the rest (dropping is fine,
+      inventing is not).
+    - At most 2 projects, 3 bullets each. Cut the less relevant project
+      entirely if both together run long.
+    - Relevant coursework: list at most 8 courses, the ones most related to
+      this job.
+    - Prefer one merged line per bullet over splitting one idea across two.
+
 ## Output format
 10. Output the complete tailored resume as Markdown, same section structure as
     the input resume.md.
