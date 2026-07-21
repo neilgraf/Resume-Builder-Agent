@@ -19,7 +19,7 @@ from google import genai
 from google.genai import types
 from browser_tools import BrowserSession
 
-MODEL = "gemini-2.5-flash"  # free-tier eligible; check ai.google.dev/gemini-api for current models & limits
+MODEL = "gemini-3.5-flash"  # free-tier eligible; check ai.google.dev/gemini-api for current models & limits
 MAX_TURNS = 15
 
 SYSTEM_PROMPT = """You are a careful job-application assistant. You fill out job \

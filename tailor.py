@@ -28,10 +28,9 @@ from bs4 import BeautifulSoup
 from google import genai
 from google.genai import types
 
-MODEL = "gemini-2.5-flash"
+MODEL = "gemini-3.5-flash"  # current Gemini model as of mid-2026; check ai.google.dev/gemini-api for current models & limits
 
 PDF_CSS = """
-@page { size: letter; margin: 0.7in; }
 body { font-family: Georgia, 'Times New Roman', serif; font-size: 10.5pt; line-height: 1.35; color: #1a1a1a; }
 h1 { font-size: 17pt; margin: 0 0 2pt 0; }
 h2 { font-size: 11.5pt; border-bottom: 1px solid #999; margin: 10pt 0 4pt 0; text-transform: uppercase; letter-spacing: 0.5pt; }
@@ -97,11 +96,17 @@ def enforce_no_dashes(text: str) -> str:
 
 def to_pdf(md_text: str, pdf_path: pathlib.Path):
     import markdown
-    from weasyprint import HTML
+    from playwright.sync_api import sync_playwright
 
     html_body = markdown.markdown(md_text)
     html = f"<html><head><style>{PDF_CSS}</style></head><body>{html_body}</body></html>"
-    HTML(string=html).write_pdf(str(pdf_path))
+
+    with sync_playwright() as pw:
+        browser = pw.chromium.launch()
+        page = browser.new_page()
+        page.set_content(html)
+        page.pdf(path=str(pdf_path), format="Letter", margin={"top": "0.7in", "bottom": "0.7in", "left": "0.7in", "right": "0.7in"})
+        browser.close()
 
 
 def git_commit(paths: list[pathlib.Path], message: str):

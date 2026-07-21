@@ -1,0 +1,51 @@
+About the job
+The Company: 
+
+impact.com is the world’s leading commerce partnership marketing platform, transforming the way businesses grow by enabling them to discover, manage, and scale partnerships across the entire customer journey. From affiliates and influencers to content publishers, brand ambassadors, and customer advocates, impact.com empowers brands to drive trusted, performance-based growth through authentic relationships. Its award-winning products - Performance (affiliate), Creator (influencer), and Advocate (customer referral) - unify every type of partner into one integrated platform. As consumers increasingly rely on recommendations from people and communities they trust, impact.com helps brands show up where it matters most. Today, over 5,000 global brands - including Walmart, Uber, Shopify, Lenovo, L’Oréal, and Fanatics - rely on impact.com to power more than 350,000 partnerships that deliver measurable business results.
+
+Your Role at impact.com: 
+
+As an Integration Engineer, you will be responsible for learning impact.com’s technology and assisting with proposing and implementing technical solutions for our clients on the company’s SaaS platform. Working alongside the Onboarding, Client Success, and other internal teams, you will interact with clients (business and technology), answering questions about the integration process, best practices, and impact.com’s technology, with the goal of getting clients live with their implementations in a timely manner.
+
+What You'll Do:
+
+Stay current with impact.com’s platform capabilities, product enhancements, and relevant industry trends.
+Support the design and integration of technical solutions for new and existing clients.
+Lead technical discovery and solution discussions to understand client requirements and propose optimal solutions based on client objectives..
+Contribute to the creation and maintenance of technical integration documentation.
+Partner closely with the Onboarding team to deliver a seamless, efficient, and high-quality onboarding experience for clients.
+Troubleshoot and resolve technical issues encountered during the client onboarding process.
+
+What You Bring:
+
+Self-starter with a focus on creating and/or refining operational processes
+Excellent verbal & written communication in English
+Ability to pair technical expertise with a considerate, customer-centric communication style that maintains a strong interpersonal presence. This style is calm, constructive, and solution-oriented—while showing patience, empathy, and professionalism when supporting stakeholders of varying technical expertise.
+A proven track record of delivering significant value through the hands-on application of AI to real-world challenges and opportunities, grounded in a sophisticated understanding of its core principles.
+Voracious learner who is willing to be out of their comfort zone
+Natural curiosity leading to a deep understanding of the client’s challenges
+Passion for solving customer issues in a fast paced environment
+Phenomenal problem-solving & troubleshooting skills
+Foundational knowledge and some practical experience in utilizing web technologies including but not limited to HTML, JavaScript, SQL and REST APIs
+Good understanding of the process and challenges involved in the design and implementation of client solutions on SaaS platforms
+Bachelor’s degree in Computer Science, Engineering, Science, Maths or related Science or Commerce discipline
+Proven performance in an Integration Support, Sales Engineering, Software Development or related discipline, preferably in an external customer-facing capacity.
+0-6+ years working in a tech-focused role at a digital marketing or technology focused company. Familiarity of affiliate and/or digital marketing industry preferred
+
+Salary Range: $65,000.00 - $115,000.00 per year (based on experience), plus an additional 5% variable annual bonus contingent on Company performance and eligible to receive a Restricted Stock Unit (RSU) grant.*This is the pay range the Company believes is equitable for this position at the time of this posting. Consistent with applicable law, compensation will be determined based on the skills, qualifications, and experience of the applicant along with the requirements of the position, and the Company reserves the right to modify this pay range at any time.
+
+Benefits (Perks):
+
+At impact.com, we believe that when you’re happy and fulfilled, you do your best work. That’s why we’ve built a benefits package that supports your well-being, growth, and work-life balance.
+
+Medical, Dental, and Vision insurance
+Office-only catered lunch every Thursday, a healthy snack bar, and great coffee to keep you fueled 
+Flexible spending accounts and 401(k)
+Flexible Working: Our Responsible PTO policy means you can take the time off you need to rest and recharge. We're committed to a positive work-life balance and provide a flexible environment that allows you to be happy and fulfilled in both your career and your personal life.
+Health and Wellness: Your well-being is a priority. Our mental health and wellness benefit includes up to 12 fully covered therapy/coaching sessions per year, with additional dependent coverage. We also offer a monthly gym reimbursement policy to support your physical health.
+A Stake in Our Growth: We offer Restricted Stock Units (RSUs) as part of our total compensation, giving you a stake in the company's growth with a 3-year vesting schedule, pending Board approval.
+Investing in Your Growth: We’re committed to your continuous learning. Take advantage of our free Coursera subscription and our PXA courses.
+Parental Support: We offer a generous parental leave policy, 26 weeks of fully paid leave for the primary caregiver and 13 weeks fully paid leave for the secondary caregiver.
+Technology Financial Support: We provide a technology stipend to help you set up your home office and a monthly allowance to cover your internet expenses. 
+
+impact.com is proud to be an equal-opportunity workplace. All employees and applicants for employment shall be given fair treatment and equal employment opportunity regardless of their race, ethnicity or ancestry, color or caste, religion or belief, age, sex (including gender identity, gender reassignment, sexual orientation, pregnancy/maternity), national origin, weight, neurodivergence, disability, marital and civil partnership status, caregiving status, veteran status, genetic information, political affiliation, or other prohibited non-merit factors.
